@@ -1,6 +1,6 @@
 require 'minitest/spec'
 require 'minitest/autorun'
-require '../lib/entry.rb'
+require '../lib/key_holder.rb'
 
 describe KeyHolder, "a keyholder in our system" do
 

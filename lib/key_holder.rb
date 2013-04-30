@@ -6,17 +6,11 @@ class KeyHolder
 	attr_accessor :access_times
 
 	def initialize(options = {})
-		default_options = {
-			:name => "",
-			:password => "",
-			:email => "",
-			:expires_at => Time.now.to_i
-		}
-		options = default_options.merge(options)
 		@name = options[:name]
 		@password = options[:password]
 		@email = options[:email]
-		@expires_at = options[:expires_at]
+		@expires_at = options[:expires_at] || Time.now.to_i
+		@access_times = options[:access_times]
 	end
 
 	def add_access
