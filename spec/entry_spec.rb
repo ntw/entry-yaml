@@ -37,4 +37,17 @@ describe KeyHolder, "a keyholder in our system" do
 		@user.email.must_equal "foo@bar.com"
 		@user.expires_at.wont_be_nil
 	end
+
+	it "can track uses of the key" do
+		@user.access_times = []
+		5.times do
+			@user.add_access
+		end
+		@user.access_times.size.must_equal 5
+	end
+
+	it "can track the last use of the key" do
+		@user.add_access
+		assert_in_delta @user.access_times.last, Time.now.to_i, 10
+	end
 end

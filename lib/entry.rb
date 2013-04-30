@@ -3,6 +3,7 @@ class KeyHolder
 	attr_accessor :password
 	attr_accessor :email
 	attr_accessor :expires_at
+	attr_accessor :access_times
 
 	def initialize(options = {})
 		default_options = {
@@ -16,6 +17,11 @@ class KeyHolder
 		@password = options[:password]
 		@email = options[:email]
 		@expires_at = options[:expires_at]
+	end
+
+	def add_access
+		@access_times ||= []
+		@access_times.push Time.now.to_i
 	end
 end
 
