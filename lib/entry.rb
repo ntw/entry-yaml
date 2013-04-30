@@ -21,7 +21,29 @@ class KeyHolder
 
 	def add_access
 		@access_times ||= []
-		@access_times.push Time.now.to_i
+		@access_times << Time.now.to_i
+	end
+
+	def valid?
+		case @name
+		when nil, ""
+			return false
+		end
+
+		case @password
+		when nil, ""
+			return false
+		end
+
+		case @expires_at
+		when nil
+			return false
+		end
+		true
+	end
+
+	def expired?
+		Time.now.to_i > @expires_at
 	end
 end
 

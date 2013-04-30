@@ -5,21 +5,19 @@ require '../lib/entry.rb'
 describe KeyHolder, "a keyholder in our system" do
 
 	before do
-		@user = KeyHolder.new
+		@user = KeyHolder.new(:name => "Someone", :password => "foobar",
+				      :email => "foo@bar.com")
 	end
 
 	it "can have a name" do
-		@user.name = "Someone"
 		@user.name.must_equal "Someone"
 	end
 
 	it "can have a password" do
-		@user.password = "foobar"
 		@user.password.must_equal "foobar"
 	end
 
 	it "can have an email" do
-		@user.email = "foo@bar.com"
 		@user.email.must_equal "foo@bar.com"
 	end
 
@@ -30,8 +28,6 @@ describe KeyHolder, "a keyholder in our system" do
 	end
 
 	it "can accept attributes at initialization" do
-		@user = KeyHolder.new(:name => "Someone", :password => "foobar",
-				      :email => "foo@bar.com")
 		@user.name.must_equal "Someone"
 		@user.password.must_equal "foobar"
 		@user.email.must_equal "foo@bar.com"
@@ -39,7 +35,6 @@ describe KeyHolder, "a keyholder in our system" do
 	end
 
 	it "can track uses of the key" do
-		@user.access_times = []
 		5.times do
 			@user.add_access
 		end
@@ -49,5 +44,31 @@ describe KeyHolder, "a keyholder in our system" do
 	it "can track the last use of the key" do
 		@user.add_access
 		assert_in_delta @user.access_times.last, Time.now.to_i, 10
+	end
+
+	it "is invalid if it has no name" do
+		@user.name = nil
+		@user.valid?.must_equal false
+		@user.name = ""
+		@user.valid?.must_equal false
+	end
+
+	it "is invalid if it has no password" do
+		@user.password = nil
+		@user.valid?.must_equal false
+		@user.password = ""
+		@user.valid?.must_equal false
+	end
+
+	it "is invalid if it never expires" do
+		@user.expires_at = nil
+		@user.valid?.must_equal false
+	end
+
+	it "can check if it is expired" do
+		@user.expires_at = Time.now.to_i + 100
+		@user.expired?.must_equal false
+		@user.expires_at = Time.now.to_i - 100
+		@user.expired?.must_equal true
 	end
 end
