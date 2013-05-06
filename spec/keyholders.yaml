@@ -1,0 +1,27 @@
+--- !ruby/object:KeyHolder
+name: Someone
+password: foobar
+email: foo@bar.com
+expires_at: 1368386609
+access_times:
+- 1367386609
+- 1367386609
+- 1367386609
+
+--- !ruby/object:KeyHolder
+name: Someone Else
+password: foobazzle
+email: foo@bar.com
+expires_at: 1368386609
+access_times:
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+- 1367386609
+

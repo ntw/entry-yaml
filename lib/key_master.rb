@@ -1,9 +1,14 @@
 require '../lib/key_holder.rb'
+require 'yaml'
 
 class KeyMaster
 	
-	def initialize(options = {})
-		@file_path = options[:file_path] || '../etc/keyholders.yaml'
+	include Enumerable
+	attr_accessor :file_path
+	attr_accessor :key_holders
+
+	def initialize(file_path = '../etc/keyholders.yaml')
+		@file_path = file_path
 		@key_holders = []
 	end
 
@@ -14,15 +19,35 @@ class KeyMaster
 		end
 	end
 
-	def write(file_path)
+	def write
 		File.open(@file_path, "w") do |file|
-			@key_holder.each do |kh|
+			@key_holders.each do |kh|
 				if kh.valid?
-					file.puts(kh)
+					file.puts YAML::dump(kh)
 					file.puts ""
 				end
 			end
 		end
 	end
-end
 
+	def name_present?(name)
+		@key_holders.each do |kh|
+			if kh.name == name
+				return true
+			end
+		end
+		false
+	end
+
+	def valid?
+		@key_holders.all? {|kh| kh.valid?}
+	end
+
+	def each(&block)
+		@key_holders.each(&block)
+	end
+
+	def <<(kh)
+		@key_holders << kh
+	end
+end
