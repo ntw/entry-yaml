@@ -25,3 +25,10 @@ access_times:
 - 1367386609
 - 1367386609
 
+--- !ruby/object:KeyHolder
+name: Foo McBar
+password: fdlsakfjlsakjls
+email: foo@mcbar.com
+expires_at: 40284024
+access_times: 
+

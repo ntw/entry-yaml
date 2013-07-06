@@ -13,10 +13,12 @@ class KeyMaster
 	end
 
 	def load
+		@backup = $/
 		$/="\n\n"
 		File.open(@file_path, "r").each do |object|
 			  @key_holders << YAML::load(object)
 		end
+		$/ = @backup
 	end
 
 	def write
