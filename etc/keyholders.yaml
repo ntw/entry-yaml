@@ -1,34 +1,13 @@
---- !ruby/object:KeyHolder
-name: Someone
-password: foobar
-email: foo@bar.com
-expires_at: 1368386609
-access_times:
-- 1367386609
-- 1367386609
-- 1367386609
-
---- !ruby/object:KeyHolder
-name: Someone Else
-password: foobazzle
-email: foo@bar.com
-expires_at: 1368386609
-access_times:
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-- 1367386609
-
---- !ruby/object:KeyHolder
-name: Foo McBar
-password: fdlsakfjlsakjls
-email: foo@mcbar.com
-expires_at: 40284024
-access_times: 
-
+---
+- !ruby/object:KeyHolder
+  name: Someone
+  password: '123'
+  email: someone@yahoo.com
+  expires_at: 1373240948
+  access_times: 
+- !ruby/object:KeyHolder
+  name: Anybody
+  password: '321'
+  email: 
+  expires_at: 1373241098
+  access_times: 

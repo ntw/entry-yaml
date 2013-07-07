@@ -13,21 +13,15 @@ class KeyMaster
 	end
 
 	def load
-		@backup = $/
-		$/="\n\n"
-		File.open(@file_path, "r").each do |object|
-			  @key_holders << YAML::load(object)
+		File.open(@file_path, "r")do |file|
+			  @key_holders = YAML::load(file)
 		end
-		$/ = @backup
 	end
 
 	def write
-		File.open(@file_path, "w") do |file|
-			@key_holders.each do |kh|
-				if kh.valid?
-					file.puts YAML::dump(kh)
-					file.puts ""
-				end
+		if self.valid?
+			File.open(@file_path, "w") do |file|
+				file.puts YAML::dump(key_holders)
 			end
 		end
 	end
